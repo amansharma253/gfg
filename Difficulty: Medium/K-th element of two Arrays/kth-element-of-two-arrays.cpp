@@ -1,50 +1,22 @@
-//{ Driver Code Starts
-#include <bits/stdc++.h>
-using namespace std;
-
-
-// } Driver Code Ends
 class Solution {
   public:
-    int kthElement(int k, vector<int>& arr1, vector<int>& arr2) {
-        // code here
-        vector<int>ans(arr1.begin(),arr1.end());
-        ans.insert(ans.end(),arr2.begin(),arr2.end());
-        sort(ans.begin(),ans.end());
-        return ans[k-1];
+    int kthElement(vector<int> &a, vector<int> &b, int k) {
+        int pos = 0;
+        int i=0, j=0, n = a.size(), m = b.size();
+        
+        for(int x=0; x<k-1; ++x){
+            if(i<n && j<m){
+                if(a[i] < b[j]) i++;
+                else j++;
+            }
+            else if(i<n) i++;
+            else j++;
+        }
+        
+        int x = INT_MAX, y = INT_MAX;
+        if(i<n) x = a[i];
+        if(j<m) y = b[j];
+        
+        return min(x, y);
     }
 };
-
-//{ Driver Code Starts.
-
-// Driver code
-int main() {
-    int t;
-    cin >> t;
-    cin.ignore();
-    while (t--) {
-        int n, m, k;
-        cin >> k;
-        cin.ignore();
-        string input;
-        int num;
-        vector<int> arr1, arr2;
-
-        getline(cin, input);
-        stringstream s2(input);
-        while (s2 >> num) {
-            arr1.push_back(num);
-        }
-
-        getline(cin, input);
-        stringstream s3(input);
-        while (s3 >> num) {
-            arr2.push_back(num);
-        }
-
-        Solution ob;
-        cout << ob.kthElement(k, arr1, arr2) << endl;
-    }
-    return 0;
-}
-// } Driver Code Ends
